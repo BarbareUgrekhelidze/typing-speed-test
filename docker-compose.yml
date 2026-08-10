@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64
+    container_name: typing-speed-test-container
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=t@ypings@p!e#ed!te?stp!as*sw0rd
+    ports:
+      - "1434:1433"
+    networks:
+      - TypingSpeedTest-network
+    volumes:
+      - mssql-data:/var/opt/mssql
+
+  backend:
+    build: ./TypingSpeedTest_backend
+    ports:
+      - "8080:8080"
+    networks:
+      - TypingSpeedTest-network
+    environment:
+      - DB_URL=jdbc:sqlserver://db:1433;databaseName=master;encrypt=true;trustServerCertificate=true;
+      - DB_USER=sa
+      - DB_PASSWORD=@ypings@p!e#ed!te?stp!as*sw0rd
+    depends_on:
+      - db
+
+  frontend:
+    build: ./TypingSpeedTest_frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - TypingSpeedTest-network
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080
+
+networks:
+  TypingSpeedTest-network:
+    driver: bridge
+
+volumes:
+  mssql-data:
