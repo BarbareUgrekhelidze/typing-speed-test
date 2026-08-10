@@ -1,5 +1,6 @@
 package com.example.typing_speed_test.model;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 
 @Entity
@@ -15,6 +16,7 @@ public class User {
     @Column(name = "UserID")
     private Integer id;
 
+    @Email
     @Column(name = "UserEmail", nullable = false, length = 150)
     private String email;
 

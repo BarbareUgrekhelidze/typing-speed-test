@@ -1,3 +1,15 @@
 spring:
   application:
     name: typing-speed-test
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: bugre24@freeuni.edu.ge
+    password: jueswfqspgksusgy
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+

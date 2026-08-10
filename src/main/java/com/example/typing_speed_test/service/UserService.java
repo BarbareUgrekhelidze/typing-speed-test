@@ -5,10 +5,12 @@ import com.example.typing_speed_test.model.User;
 import com.example.typing_speed_test.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.NoSuchElementException;
 import static com.example.typing_speed_test.utility.UserConverter.toUserResponse;
+import org.springframework.mail.javamail.JavaMailSender;
 
 @Service
 public class UserService {
@@ -20,6 +22,9 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     public UserResponse getUserById(Integer id){
         return toUserResponse(userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("User with id: " + id + " does not exist")));
@@ -55,6 +60,11 @@ public class UserService {
             throw new IllegalArgumentException("User with this email already exists.");
         }
 
+        boolean emailExistsCheck = sendEmail(request.getEmail());
+        if (!emailExistsCheck){
+            throw new IllegalArgumentException("Email does not exist.");
+        }
+
         String encodedPass = passwordEncoder.encode(request.getPassword());
         User newUser = User.builder()
                 .email(request.getEmail())
@@ -63,6 +73,23 @@ public class UserService {
                 .build();
 
         return toUserResponse(userRepository.save(newUser));
+    }
+
+    private boolean sendEmail(String email){
+        boolean result = true;
+
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("bugre24@freeuni.edu.ge");
+            message.setTo(email);
+            message.setSubject("Typing Speed Test");
+            message.setText("You successfully signed up on Typing Speed Test website");
+            mailSender.send(message);
+        }catch (Exception e){
+            result = false;
+        }
+
+        return result;
     }
 
     @Transactional
