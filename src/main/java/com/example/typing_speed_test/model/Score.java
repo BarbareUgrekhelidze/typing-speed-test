@@ -15,6 +15,18 @@ public class Score {
     @Column(name = "ScoreID")
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "UserID", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "DifficultyID", nullable = false)
+    private Difficulty difficulty;
+
+    @ManyToOne
+    @JoinColumn(name = "TimeID", nullable = false)
+    private TimeMode timeMode;
+
     @Column(name = "Wmp", nullable = false)
-    private Integer wmp;
+    private Integer wpm;
 }
