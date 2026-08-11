@@ -16,7 +16,7 @@ public class TimeMode {
     @Column(name = "TimeID")
     private Integer id;
 
-    @Column(name = "Time")
+    @Column(name = "Time", nullable = false)
     private Duration time;
 
     public TimeMode(Duration time){

@@ -15,7 +15,7 @@ public class Difficulty {
     @Column(name="DifficultyID")
     private Integer id;
 
-    @Column(name="Difficulty")
+    @Column(name="Difficulty", nullable = false)
     private String difficulty;
 
     public Difficulty(String difficulty){
