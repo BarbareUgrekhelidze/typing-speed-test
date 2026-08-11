@@ -17,4 +17,8 @@ public class Difficulty {
 
     @Column(name="Difficulty")
     private String difficulty;
+
+    public Difficulty(String difficulty){
+        this.difficulty = difficulty;
+    }
 }
