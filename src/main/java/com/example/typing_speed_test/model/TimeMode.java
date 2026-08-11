@@ -18,4 +18,8 @@ public class TimeMode {
 
     @Column(name = "Time")
     private Duration time;
+
+    public TimeMode(Duration time){
+        this.time = time;
+    }
 }
