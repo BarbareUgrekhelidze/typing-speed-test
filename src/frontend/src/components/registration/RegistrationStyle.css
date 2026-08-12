@@ -42,11 +42,12 @@ input {
     height: 50px;
     padding: 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 7px;
     cursor: pointer;
     color: White;
     font-size: 17px;
     background-color: var(--blue);
+    transition: all 0.2s;
 }
 
 .sign-in-btn:hover,
