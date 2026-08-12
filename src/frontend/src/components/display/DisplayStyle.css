@@ -1,0 +1,82 @@
+:root{
+    --blue: hsl(214, 100%, 55%);
+    --blue-hover: hsl(210, 100%, 65%);
+}
+
+body{
+    color: White;
+}
+
+.container{
+    width: 80%;
+    margin: auto;
+    padding: 20px 0px 20px 0px;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.head img {
+    width: 150px;
+}
+
+.head .personal-best {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.head .personal-best img {
+    width: 20px;
+}
+
+.current-state {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0px 20px 0px;
+}
+
+.current-state .box-1{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.current-state .box-2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.current-state .box-2 .difficulty {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.current-state .box-2 .difficulty button {
+    border: 1px solid White;
+    padding: 2px 10px 2px 10px;
+    background: transparent;
+    color: White;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.current-state .box-2 .difficulty button:hover {
+    border: 1px solid var(--blue);
+    color: var(--blue);
+}
+
+.button-active{
+    border: 1px solid var(--blue);
+    color: var(--blue);
+}

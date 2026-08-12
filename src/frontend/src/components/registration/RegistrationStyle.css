@@ -1,11 +1,6 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: hsl(0, 0%, 7%);
+:root{
+    --blue: hsl(214, 100%, 55%);
+    --blue-hover: hsl(210, 100%, 65%);
 }
 
 .container {
@@ -51,11 +46,11 @@ input {
     cursor: pointer;
     color: White;
     font-size: 17px;
-    background-color: hsl(214, 100%, 55%);
+    background-color: var(--blue);
 }
 
 .sign-in-btn:hover,
 .sign-up-btn:hover {
-    background-color: hsl(210, 100%, 65%)
+    background-color: var(--blue-hover);
 }
 
