@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface HardWordRepository extends JpaRepository<HardWord, Integer> {
-    Optional<EasyWord> findByHardWordId(Integer id);
+    Optional<HardWord> findByHardWordId(Integer id);
 }

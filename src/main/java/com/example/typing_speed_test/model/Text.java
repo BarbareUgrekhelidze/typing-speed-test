@@ -15,7 +15,7 @@ public class Text {
     @Column(name = "TextID")
     private Integer id;
 
-    @Column(name = "Text", nullable = false, length = 1000)
+    @Column(name = "Text", nullable = false)
     private String text;
 
     public Text(String text){

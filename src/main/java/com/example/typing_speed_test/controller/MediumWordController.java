@@ -1,5 +1,5 @@
 package com.example.typing_speed_test.controller;
-import com.example.typing_speed_test.dto.EasyWordResponse;
+import com.example.typing_speed_test.dto.MediumWordResponse;
 import com.example.typing_speed_test.service.MediumWordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,7 @@ public class MediumWordController {
     private MediumWordService mediumWordService;
 
     @GetMapping
-    public List<EasyWordResponse> getRandomEasyWords(){
+    public List<MediumWordResponse> getRandomEasyWords(){
         return mediumWordService.getRandomMediumWords();
     }
 }
