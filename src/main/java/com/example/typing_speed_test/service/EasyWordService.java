@@ -28,7 +28,7 @@ public class EasyWordService {
         Random random = new Random();
         for(int i = 0; i < NUM_WORDS; i++){
             randomNumber = random.nextLong(1, maxCount+1);
-            Optional<EasyWord> easyWord = easyWordRepository.findByEasyWordId((int)randomNumber);
+            Optional<EasyWord> easyWord = easyWordRepository.findById((int)randomNumber);
 
             if (easyWord != null){
                 result.add(easyWord.get());

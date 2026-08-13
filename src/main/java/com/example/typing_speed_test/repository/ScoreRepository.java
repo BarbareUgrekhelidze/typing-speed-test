@@ -6,5 +6,5 @@ import java.util.Optional;
 
 @Repository
 public interface ScoreRepository extends JpaRepository<Score, Integer> {
-    Optional<Score> findByUserID(Integer id);
+    Optional<Score> findByUserId(Integer id);
 }

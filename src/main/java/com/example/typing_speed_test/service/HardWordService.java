@@ -27,7 +27,7 @@ public class HardWordService {
         Random random = new Random();
         for(int i = 0; i < NUM_WORDS; i++){
             randomNumber = random.nextLong(1, maxCount+1);
-            Optional<HardWord> hardWord = hardWordRepository.findByHardWordId((int)randomNumber);
+            Optional<HardWord> hardWord = hardWordRepository.findById((int)randomNumber);
 
         }
 

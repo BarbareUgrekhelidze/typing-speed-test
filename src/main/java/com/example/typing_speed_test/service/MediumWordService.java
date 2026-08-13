@@ -26,7 +26,7 @@ public class MediumWordService {
         Random random = new Random();
         for(int i = 0; i < NUM_WORDS; i++){
             randomNumber = random.nextLong(1, maxCount+1);
-            Optional<MediumWord> mediumWord = mediumWordRepository.findByMediumWordId((int)randomNumber);
+            Optional<MediumWord> mediumWord = mediumWordRepository.findById((int)randomNumber);
 
             if (mediumWord != null){
                 result.add(mediumWord.get());

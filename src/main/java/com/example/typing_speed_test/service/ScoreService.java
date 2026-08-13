@@ -27,7 +27,7 @@ public class ScoreService {
     private DifficultyRepository difficultyRepository;
 
     public List<ScoreResponse> getScoresByUser(Integer userId){
-        Optional<Score> scores = scoreRepository.findByUserID(userId);
+        Optional<Score> scores = scoreRepository.findByUserId(userId);
 
         return scores.stream().map(score -> {
             return new ScoreResponse(score.getId(), score.getUser(), score.getDifficulty(), score.getTimeMode(), score.getWpm());
@@ -35,7 +35,7 @@ public class ScoreService {
     }
 
     public ScoreResponse getMaxScore(Integer userId){
-        Optional<Score> scores = scoreRepository.findByUserID(userId);
+        Optional<Score> scores = scoreRepository.findByUserId(userId);
         Score defaultScore = new Score();
         defaultScore.setWpm(Integer.MIN_VALUE);
 
