@@ -17,4 +17,8 @@ public class HardWord {
 
     @Column(name="HardWord", nullable = false)
     private String hardWord;
+
+    public HardWord(String hardWord){
+        this.hardWord = hardWord;
+    }
 }

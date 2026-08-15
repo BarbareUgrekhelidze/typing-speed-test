@@ -1,7 +1,8 @@
 import './DisplayStyle.css'
+import {useState} from "react";
 
 function Main(){
-    let text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab ad, consequatur esse excepturi impedit modi nesciunt nobis repellat veniam voluptatem!";
+    const [text, setText] = useState([])
 
     return (
         <div className="main">

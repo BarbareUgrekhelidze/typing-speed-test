@@ -17,4 +17,8 @@ public class EasyWord {
 
     @Column(name="EasyWord", nullable = false)
     private String easyWord;
+
+    public EasyWord(String easyWord){
+        this.easyWord = easyWord;
+    }
 }

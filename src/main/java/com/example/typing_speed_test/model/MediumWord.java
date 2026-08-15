@@ -17,4 +17,8 @@ public class MediumWord {
 
     @Column(name="MediumWord", nullable = false)
     private String mediumWord;
+
+    public MediumWord(String mediumWord){
+        this.mediumWord = mediumWord;
+    }
 }
