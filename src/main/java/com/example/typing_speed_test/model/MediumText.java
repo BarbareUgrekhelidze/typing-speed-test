@@ -16,7 +16,7 @@ public class MediumText {
     @Column(name="MediumTextID")
     private Integer id;
 
-    @Column(name="MediumText", nullable = false)
+    @Column(name="MediumText", nullable = false, length = 2000)
     private String mediumText;
 
     public MediumText(String mediumText){

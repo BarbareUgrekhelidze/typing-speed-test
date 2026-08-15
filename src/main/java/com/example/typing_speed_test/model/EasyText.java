@@ -16,7 +16,7 @@ public class EasyText {
     @Column(name="EasyTextID")
     private Integer id;
 
-    @Column(name="EasyText", nullable = false)
+    @Column(name="EasyText", nullable = false, length = 2000)
     private String easyText;
 
     public EasyText(String easyText){

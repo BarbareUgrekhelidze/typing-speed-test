@@ -16,7 +16,7 @@ public class HardText {
     @Column(name="HardTextID")
     private Integer id;
 
-    @Column(name="HardText", nullable = false)
+    @Column(name="HardText", nullable = false, length = 2000)
     private String hardText;
 
     public HardText(String hardText){

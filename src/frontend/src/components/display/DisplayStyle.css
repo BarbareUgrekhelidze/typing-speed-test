@@ -123,12 +123,17 @@ body{
     border-bottom: 1px solid White;
     padding: 25px 0px 25px 0px;
     margin: 20px 0px 20px 0px;
+    height: 300px;
+    box-sizing: border-box; /* Includes padding in the 250px height */
+    overflow-y: auto;
 }
 
 .main h1 {
     font-weight: 400;
     line-height: 2em;
-    opacity: 70%;
+    opacity: 0.7;
+    word-break: break-word;
+    text-align: justify;
 }
 
 .restart {

@@ -29,6 +29,9 @@ public class HardWordService {
             randomNumber = random.nextLong(1, maxCount+1);
             Optional<HardWord> hardWord = hardWordRepository.findById((int)randomNumber);
 
+            if (hardWord != null){
+                result.add(hardWord.get());
+            }
         }
 
         return result.stream().map(word -> toHardWordResponse(word)).collect(Collectors.toList());

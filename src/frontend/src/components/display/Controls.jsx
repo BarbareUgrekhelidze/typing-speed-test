@@ -8,6 +8,7 @@ function Controls (){
 
     useEffect (() => {
         localStorage.setItem('difficulty', level);
+        window.dispatchEvent(new Event('difficultyChange'));
     }, [level])
 
     const[time, setTime] = useState(() => {
