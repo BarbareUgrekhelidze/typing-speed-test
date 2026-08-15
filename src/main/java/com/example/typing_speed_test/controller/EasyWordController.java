@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/easy")
+@RequestMapping("/easyWord")
 public class EasyWordController {
     @Autowired
     private EasyWordService easyWordService;

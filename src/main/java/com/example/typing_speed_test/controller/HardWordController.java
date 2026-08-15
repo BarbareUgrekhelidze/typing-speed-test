@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/hard")
+@RequestMapping("/hardWord")
 public class HardWordController {
     @Autowired
     private HardWordService hardWordService;
 
     @GetMapping
-    public List<HardWordResponse> getRandomEasyWords(){
+    public List<HardWordResponse> getRandomHardWords(){
         return hardWordService.getRandomHardWords();
     }
 }

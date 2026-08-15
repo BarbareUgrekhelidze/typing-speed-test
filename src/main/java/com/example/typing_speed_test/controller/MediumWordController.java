@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/medium")
+@RequestMapping("/mediumWord")
 public class MediumWordController {
     @Autowired
     private MediumWordService mediumWordService;
 
     @GetMapping
-    public List<MediumWordResponse> getRandomEasyWords(){
+    public List<MediumWordResponse> getRandomMediumWords(){
         return mediumWordService.getRandomMediumWords();
     }
 }
