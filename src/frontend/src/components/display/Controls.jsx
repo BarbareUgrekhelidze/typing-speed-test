@@ -29,7 +29,7 @@ function Controls (){
                     <p>Accuracy: <span>100%</span></p>
                 </div>
                 <div className="time">
-                    <p>Time: <span className="seconds">0.15</span></p>
+                    <p>Time: <span className="seconds">{`0.${time}`}</span></p>
                 </div>
             </div>
             <div className="box-2">
