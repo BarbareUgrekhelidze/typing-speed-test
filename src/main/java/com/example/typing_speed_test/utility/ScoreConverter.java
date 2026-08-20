@@ -13,6 +13,7 @@ public class ScoreConverter {
                 .difficulty(score.getDifficulty())
                 .timeMode(score.getTimeMode())
                 .wpm(score.getWpm())
+                .textId(score.getTextId())
                 .build();
     }
 

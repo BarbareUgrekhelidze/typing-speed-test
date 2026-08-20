@@ -29,4 +29,15 @@ public class Score {
 
     @Column(name = "Wmp", nullable = false)
     private Integer wpm;
+
+    @Column(name = "TextID", nullable = false)
+    private Integer textId;
+
+    public Score(User user, Difficulty difficulty, TimeMode timeMode, Integer wpm, Integer textId){
+        this.user = user;
+        this.difficulty = difficulty;
+        this.timeMode = timeMode;
+        this.wpm = wpm;
+        this.textId = textId;
+    }
 }

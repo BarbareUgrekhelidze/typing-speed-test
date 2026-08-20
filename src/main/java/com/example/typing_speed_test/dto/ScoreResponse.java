@@ -15,4 +15,5 @@ public class ScoreResponse {
     public Difficulty difficulty;
     public TimeMode timeMode;
     public Integer wpm;
+    public Integer textId;
 }

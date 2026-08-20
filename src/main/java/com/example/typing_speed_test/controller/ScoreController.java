@@ -20,7 +20,7 @@ public class ScoreController {
     }
 
     @GetMapping("/maxScore/{userId}")
-    public ScoreResponse getMaxScoreByUserId(@PathVariable Integer userId){
-        return scoreService.getMaxScore(userId);
+    public ScoreResponse getMaxScoreByUserId(@PathVariable Integer userId, Integer difficulty){
+        return scoreService.getMaxScore(userId, difficulty);
     }
 }
