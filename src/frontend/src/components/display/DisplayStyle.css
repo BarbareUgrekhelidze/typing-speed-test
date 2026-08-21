@@ -10,7 +10,7 @@ body{
     color: White;
 }
 
-.container{
+.wrapper{
     width: 80%;
     margin: auto;
     padding: 20px 0px 20px 0px;
@@ -135,14 +135,14 @@ body{
     word-break: break-word;
 }
 
-.restart {
+.btns {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
 }
 
-.restart button {
+.btns button {
     height: 50px;
     padding: 10px;
     border: none;
@@ -156,10 +156,6 @@ body{
     align-items: center;
     gap: 10px;
     transition: all 0.2s;
-}
-
-.restart button:hover{
-    background-color: var(--blue-hover);
 }
 
 .registration {

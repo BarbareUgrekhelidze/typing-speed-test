@@ -7,33 +7,33 @@ function Main(){
         return localStorage.getItem('difficulty') || 'easy'
     })
 
-    useEffect(() => {
-        const handleDifficultyChange = () => {
-            const currentLevel = localStorage.getItem('difficulty') || 'easy';
-            setLevel(currentLevel);
-        };
+    const handleDifficultyChange = () => {
+        const currentLevel = localStorage.getItem('difficulty') || 'easy';
+        setLevel(currentLevel);
+    };
 
+    useEffect(() => {
         window.addEventListener('difficultyChange', handleDifficultyChange);
         return () => window.removeEventListener('difficultyChange', handleDifficultyChange);
     }, []);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            let result;
+    const fetchData = async () => {
+        let result;
 
-            if (level === 'easy'){
-                result = await fetch('http://localhost:8080/easy')
-            }else if (level === 'medium'){
-                result = await fetch('http://localhost:8080/medium')
-            }else if (level === 'hard'){
-                result = await fetch('http://localhost:8080/hard')
-            }
-
-            const data = await result.json();
-            console.log(data)
-            setText(data.easyText || data.mediumText || data.hardText || data.text || JSON.stringify(data));
+        if (level === 'easy'){
+            result = await fetch('http://localhost:8080/easy')
+        }else if (level === 'medium'){
+            result = await fetch('http://localhost:8080/medium')
+        }else if (level === 'hard'){
+            result = await fetch('http://localhost:8080/hard')
         }
 
+        const data = await result.json();
+        console.log(data)
+        setText(data.easyText || data.mediumText || data.hardText || data.text || JSON.stringify(data));
+    }
+
+    useEffect(() => {
         fetchData();
     }, [level])
 

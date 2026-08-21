@@ -1,16 +1,16 @@
 import './DisplayStyle.css'
-import Restart from "./Restart.jsx";
+import Buttons from "./Buttons.jsx";
 import Head from "./Head.jsx";
 import Controls from "./Controls.jsx";
 import Main from "./Main.jsx";
 
 function MainPage(){
     return (
-        <div className="container">
+        <div className="wrapper">
             <Head />
             <Controls />
             <Main />
-            <Restart />
+            <Buttons />
         </div>
     )
 }
