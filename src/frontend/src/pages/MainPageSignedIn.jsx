@@ -1,4 +1,4 @@
-import './DisplayStyle.css'
+import '../components/display/DisplayStyle.css'
 
 function MainPageSignedIn(){
     return (

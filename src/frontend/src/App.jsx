@@ -1,5 +1,5 @@
 import './App.css'
-import MainPage from "./components/display/MainPage.jsx";
+import MainPage from "./pages/MainPage.jsx";
 import {Route, Routes} from "react-router-dom";
 import SignIn from "./components/registration/SignIn.jsx";
 import SignUp from "./components/registration/SignUp.jsx";
