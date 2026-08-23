@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import java.util.stream.Collectors;
 import static com.example.typing_speed_test.utility.MediumWordConverter.toMediumWordResponse;
 
@@ -21,12 +20,8 @@ public class MediumWordService {
     public List<MediumWordResponse> getRandomMediumWords(){
         List<MediumWord> result = new ArrayList<>();
 
-        long randomNumber = 0;
-        long maxCount = mediumWordRepository.count();
-        Random random = new Random();
         for(int i = 0; i < NUM_WORDS; i++){
-            randomNumber = random.nextLong(1, maxCount+1);
-            Optional<MediumWord> mediumWord = mediumWordRepository.findById((int)randomNumber);
+            Optional<MediumWord> mediumWord = mediumWordRepository.findRandomMediumWord();
 
             if (mediumWord != null){
                 result.add(mediumWord.get());

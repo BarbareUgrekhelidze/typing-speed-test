@@ -29,7 +29,7 @@ public class EasyWordRepositorySeeder implements CommandLineRunner {
         List<String> words = wordParser.getWords(is);
 
         for(int i = 0; i < words.size(); i++){
-            easyWordRepository.save(new EasyWord(words.get(i)));
+            easyWordRepository.save(new EasyWord(words.get(i).toLowerCase()));
         }
     }
 }

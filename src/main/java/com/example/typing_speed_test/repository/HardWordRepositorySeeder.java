@@ -30,7 +30,7 @@ public class HardWordRepositorySeeder implements CommandLineRunner {
         List<String> words = wordParser.getWords(is);
 
         for(int i = 0; i < words.size(); i++){
-            hardWordRepository.save(new HardWord(words.get(i)));
+            hardWordRepository.save(new HardWord(words.get(i).toLowerCase()));
         }
     }
 }

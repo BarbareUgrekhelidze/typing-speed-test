@@ -30,7 +30,7 @@ public class MediumWordRepositorySeeder implements CommandLineRunner {
         List<String> words = wordParser.getWords(is);
 
         for(int i = 0; i < words.size(); i++){
-            mediumWordRepository.save(new MediumWord(words.get(i)));
+            mediumWordRepository.save(new MediumWord(words.get(i).toLowerCase()));
         }
     }
 }

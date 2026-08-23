@@ -14,7 +14,6 @@ function Main(){
     const handleDifficultyChange = async () => {
         const currentLevel = localStorage.getItem('difficulty') || 'easy';
         setLevel(currentLevel);
-        await fetchData()
     };
 
     const handleRestart = async () => {
@@ -52,7 +51,7 @@ function Main(){
     })
 
     useEffect(() => {
-        fetchData().then(r => "")
+        fetchData()
     }, [level])
 
     useEffect(() => {
@@ -75,7 +74,7 @@ function Main(){
             return
         }
 
-        if (currIndex < text.length - 1) {
+        if (currIndex < text.length) {
             if ((e.key === text[currIndex])) {
                 updateChar(currIndex, 'green')
             }else{
