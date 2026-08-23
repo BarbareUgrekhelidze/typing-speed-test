@@ -96,24 +96,19 @@ function Main(){
         <div className="main">
             <h1 className="text">
                 {chars.map((value, index) => {
+                    let classname= ''
+
                     if (value === 'red'){
-                        return (
-                            <span key={index} className='text-red'>{text[index]}</span>
-                        )
+                        classname = 'text-red'
                     }else if (value === 'green'){
-                        return (
-                            <span key={index} className="text-green">{text[index]}</span>
-                        )
+                        classname = 'text-green'
                     }else if (index === currIndex){
-                        return (
-                            <span key={index} className="text-curr">{text[index]}</span>
-                        )
-                    }else {
-                        return (
-                            <span key={index}>{text[index]}</span>
-                        )
+                        classname = 'text-curr'
                     }
 
+                    return (
+                        <span key={index} className={classname}>{text[index]}</span>
+                    )
                 })}
             </h1>
         </div>
