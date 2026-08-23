@@ -3,23 +3,8 @@ import {useEffect, useRef, useState} from "react";
 
 function Main(){
     const [text, setText] = useState("")
-    const [level, setLevel] = useState(() => {
-        return localStorage.getItem('difficulty') || 'easy'
-    })
-    const [chars, setChars] = useState(() => {
-        return Array(text.length).fill('untyped')
-    })
-    const [currIndex, setCurrIndex] = useState(0)
 
-    const handleDifficultyChange = async () => {
-        const currentLevel = localStorage.getItem('difficulty') || 'easy';
-        setLevel(currentLevel);
-    };
-
-    const handleRestart = async () => {
-        await fetchData()
-    };
-
+    {/* Start fetching random text */}
     const fetchData = async () => {
         try {
             let result;
@@ -38,6 +23,17 @@ function Main(){
             console.error("failed to fetch data: ", err)
         }
     }
+    {/* End fetching random text */}
+
+    {/* Start difficulty change logic */}
+    const [level, setLevel] = useState(() => {
+        return localStorage.getItem('difficulty') || 'easy'
+    })
+
+    const handleDifficultyChange = async () => {
+        const currentLevel = localStorage.getItem('difficulty') || 'easy';
+        setLevel(currentLevel);
+    };
 
     useEffect(() => {
         window.addEventListener('difficultyChange', handleDifficultyChange);
@@ -45,25 +41,29 @@ function Main(){
     }, []);
 
     useEffect(() => {
+        fetchData()
+    }, [level])
+    {/* End difficulty change logic */}
+
+    {/* Start Restart logic */}
+    useEffect(() => {
         window.addEventListener('restart', handleRestart);
         return () => window.removeEventListener('restart', handleRestart)
     })
 
-    useEffect(() => {
-        fetchData()
-    }, [level])
+    const handleRestart = async () => {
+        await fetchData()
+    };
+    {/* End Restart logic */}
 
-    useEffect(() => {
-        if (text) {
-            setChars(Array(text.length).fill('untyped'))
-            setCurrIndex(0)
-            initialTop.current = null;
-            setCurrentLine(0);
-        }
-    }, [text])
+    {/* Start Typing logic */}
+    const [chars, setChars] = useState(() => {
+        return Array(text.length).fill('untyped')
+    })
+    const [currIndex, setCurrIndex] = useState(0)
 
     const handleTyping = (e) => {
-        if (e.key === ' ' || e.code === 'Space'){
+        if (e.key === ' '){
             e.preventDefault()
         }
 
@@ -93,7 +93,9 @@ function Main(){
         window.addEventListener('keydown', handleTyping)
         return () => window.removeEventListener('keydown', handleTyping)
     }, [chars, currIndex])
+    {/* End Typing logic */}
 
+    {/* Start Scroll logic */}
     const [currentLine, setCurrentLine] = useState(0)
     const positions = useRef([])
     const initialTop = useRef(null)
@@ -117,9 +119,21 @@ function Main(){
     }, [currIndex])
 
     const scrollOffset = currentLine > 1 ? (currentLine - 1) * LINE_HEIGHT_REM : 0;
+    {/* End Scroll logic */}
+
+    {/* Text change reset ---- */}
+    useEffect(() => {
+        if (text) {
+            setChars(Array(text.length).fill('untyped'))
+            setCurrIndex(0)
+            initialTop.current = null;
+            setCurrentLine(0);
+        }
+    }, [text])
+    {/* ---- Text change reset */}
 
     return (
-        <div className="main" style={{ height: `${LINE_HEIGHT_REM * 3 + 3}rem`, overflow: 'hidden' }}>
+        <div className="main" style={{ height: `${LINE_HEIGHT_REM * 3}rem`, overflow: 'hidden' }}>
 
             <div
                 style={{
@@ -136,7 +150,7 @@ function Main(){
 
                         return (
                             <span
-                                ref={(el) => { positions.current[index] = el }}
+                                ref={(element) => { positions.current[index] = element }}
                                 key={index}
                                 className={classname}
                             >
