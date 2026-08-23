@@ -119,21 +119,17 @@ body{
 }
 
 .main {
+    overflow: hidden;
     border-top: 1px solid White;
     border-bottom: 1px solid White;
     padding: 25px 0px 25px 0px;
     margin: 20px 0px 20px 0px;
+    box_sizing: content-box;
 }
 
 .text {
     font-weight: 400;
-    line-height: 2em;
     opacity: 0.7;
-    word-break: break-word;
-    height: 200px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    scroll-behavior: smooth;
 }
 
 .btns {

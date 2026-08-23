@@ -1,5 +1,5 @@
 import './DisplayStyle.css'
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 function Main(){
     const [text, setText] = useState("")
@@ -57,6 +57,8 @@ function Main(){
         if (text) {
             setChars(Array(text.length).fill('untyped'))
             setCurrIndex(0)
+            initialTop.current = null;
+            setCurrentLine(0);
         }
     }, [text])
 
@@ -92,25 +94,59 @@ function Main(){
         return () => window.removeEventListener('keydown', handleTyping)
     }, [chars, currIndex])
 
+    const [currentLine, setCurrentLine] = useState(0)
+    const positions = useRef([])
+    const initialTop = useRef(null)
+    const LINE_HEIGHT_REM = 3;
+
+    useEffect(() => {
+        const currPosition = positions.current[currIndex]
+
+        if (currPosition) {
+            const offset = currPosition.offsetTop
+
+            if (initialTop.current === null) {
+                initialTop.current = offset
+            }
+
+            const lineHeightPx = LINE_HEIGHT_REM * 16;
+            const lineIndex = Math.floor((offset - initialTop.current) / lineHeightPx);
+
+            setCurrentLine(lineIndex);
+        }
+    }, [currIndex])
+
+    const scrollOffset = currentLine > 1 ? (currentLine - 1) * LINE_HEIGHT_REM : 0;
+
     return (
-        <div className="main">
-            <h1 className="text">
-                {chars.map((value, index) => {
-                    let classname= ''
+        <div className="main" style={{ height: `${LINE_HEIGHT_REM * 3 + 3}rem`, overflow: 'hidden' }}>
 
-                    if (value === 'red'){
-                        classname = 'text-red'
-                    }else if (value === 'green'){
-                        classname = 'text-green'
-                    }else if (index === currIndex){
-                        classname = 'text-curr'
-                    }
+            <div
+                style={{
+                    transform: `translateY(-${scrollOffset}rem)`,
+                    transition: 'transform 0.2s ease-out'
+                }}
+            >
+                <h1 className="text" style={{ lineHeight: `${LINE_HEIGHT_REM}rem` }}>
+                    {chars.map((value, index) => {
+                        let classname = ''
+                        if (value === 'red') classname = 'text-red'
+                        else if (value === 'green') classname = 'text-green'
+                        else if (index === currIndex) classname = 'text-curr'
 
-                    return (
-                        <span key={index} className={classname}>{text[index]}</span>
-                    )
-                })}
-            </h1>
+                        return (
+                            <span
+                                ref={(el) => { positions.current[index] = el }}
+                                key={index}
+                                className={classname}
+                            >
+                                {text[index]}
+                            </span>
+                        )
+                    })}
+                </h1>
+            </div>
+
         </div>
     )
 }
