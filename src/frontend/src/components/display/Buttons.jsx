@@ -13,7 +13,6 @@ function Buttons (){
     }
 
     function handleRestart(){
-        console.log("restart")
         window.dispatchEvent(new Event('restart'))
     }
 

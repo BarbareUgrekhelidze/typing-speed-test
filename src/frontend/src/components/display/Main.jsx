@@ -33,7 +33,6 @@ function Main(){
             }
 
             const data = await result.json();
-            console.log(data)
             setText(data.easyText || data.mediumText || data.hardText || data.text || JSON.stringify(data));
         }catch(err){
             console.error("failed to fetch data: ", err)
@@ -82,8 +81,6 @@ function Main(){
             }
             setCurrIndex((prev) => prev + 1)
         }
-
-        console.log(e.key)
     }
 
     const updateChar = (index, value) => {
