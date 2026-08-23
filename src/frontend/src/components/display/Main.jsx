@@ -121,6 +121,14 @@ function Main(){
     const scrollOffset = currentLine > 1 ? (currentLine - 1) * LINE_HEIGHT_REM : 0;
     {/* End Scroll logic */}
 
+    {/* Start Timer logic */}
+    {/** todo */}
+    {/* End Timer logic */}
+
+    {/* Start Speed calculation logic */}
+    {/** todo */}
+    {/* End Speed calculation logic */}
+
     {/* Text change reset ---- */}
     useEffect(() => {
         if (text) {

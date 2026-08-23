@@ -120,8 +120,7 @@ body{
 
 .main {
     overflow: hidden;
-    border-top: 1px solid White;
-    border-bottom: 1px solid White;
+
     margin: 60px 0px 60px 0px;
     box_sizing: content-box;
 }
