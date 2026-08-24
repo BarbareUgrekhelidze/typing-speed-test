@@ -3,6 +3,7 @@ import {useEffect, useRef, useState} from "react";
 
 function Main(){
     const [text, setText] = useState("")
+    const [testEnd, setTestEnd] = useState(false)
 
     {/* Start fetching random text */}
     const fetchData = async () => {
@@ -45,6 +46,17 @@ function Main(){
     }, [level])
     {/* End difficulty change logic */}
 
+    {/* Start Handle time change */}
+    useEffect(() => {
+        window.addEventListener('timeChange', handleTimeChange)
+        return () => window.removeEventListener('timeChange', handleTimeChange)
+    })
+
+    const handleTimeChange = async () => {
+        await fetchData()
+    }
+    {/* End Handle time change */}
+
     {/* Start Restart logic */}
     useEffect(() => {
         window.addEventListener('restart', handleRestart);
@@ -63,6 +75,10 @@ function Main(){
     const [currIndex, setCurrIndex] = useState(0)
 
     const handleTyping = (e) => {
+        if (testEnd) return
+
+        window.dispatchEvent(new Event('startTimer'))
+
         if (e.key === ' '){
             e.preventDefault()
         }
@@ -121,12 +137,17 @@ function Main(){
     const scrollOffset = currentLine > 1 ? (currentLine - 1) * LINE_HEIGHT_REM : 0;
     {/* End Scroll logic */}
 
-    {/* Start Timer logic */}
-    {/** todo */}
-    {/* End Timer logic */}
-
     {/* Start Speed calculation logic */}
-    {/** todo */}
+    useEffect(() => {
+        window.addEventListener('testEnd', handleTestEnd)
+        return () => window.removeEventListener('testEnd', handleTestEnd)
+    }, [])
+
+    const handleTestEnd = () => {
+        setTestEnd(true)
+
+        {/** todo calculate result */}
+    }
     {/* End Speed calculation logic */}
 
     {/* Text change reset ---- */}
@@ -136,6 +157,8 @@ function Main(){
             setCurrIndex(0)
             initialTop.current = null;
             setCurrentLine(0);
+            setTestEnd(false)
+            window.dispatchEvent(new Event('stopTimer'))
         }
     }, [text])
     {/* ---- Text change reset */}

@@ -1,7 +1,10 @@
 import './DisplayStyle.css'
 import {useEffect, useState} from "react";
+import Timer from "./Timer.jsx";
 
 function Controls (){
+
+    {/* Start Handle Level */}
     const [level, setLevel] = useState(() => {
       return localStorage.getItem('difficulty') || 'easy'
     })
@@ -10,14 +13,18 @@ function Controls (){
         localStorage.setItem('difficulty', level);
         window.dispatchEvent(new Event('difficultyChange'));
     }, [level])
+    {/* End Handle Level */}
 
+    {/* Start Handle Time */}
     const[time, setTime] = useState(() => {
         return localStorage.getItem('timeMode') || '30'
     })
 
     useEffect(() => {
         localStorage.setItem('timeMode', time)
+        window.dispatchEvent(new Event('timeChange'))
     }, [time])
+    {/* End Handle Level */}
 
     return (
         <div className="current-state">
@@ -29,7 +36,9 @@ function Controls (){
                     <p>Accuracy: <span>100%</span></p>
                 </div>
                 <div className="time">
-                    <p>Time: <span className="seconds">{time >= 60 ? `${time / 60}.00` : `0.${time}`}</span></p>
+                    <p>Time:
+                        <Timer duration={time} />
+                    </p>
                 </div>
             </div>
             <div className="box-2">
