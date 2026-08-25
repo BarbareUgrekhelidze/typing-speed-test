@@ -3,6 +3,7 @@ import {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 function Main(){
+    const [attemptedChars, setAttemptedChars] = useState(0)
     const navigate = useNavigate()
 
     const [text, setText] = useState("")
@@ -71,6 +72,7 @@ function Main(){
     const handleTyping = (e) => {
         if (testEnd || !text.length) return
 
+        setAttemptedChars((prev) => prev+1)
         window.dispatchEvent(new Event('startTimer'))
 
         if (e.key === ' '){
@@ -147,12 +149,12 @@ function Main(){
 
         let words = getWords()
         let correctChars = getNumOfCorrectChars(words)
+        let overallCorrectChars = getNumGreenChars()
         let result = getResult(correctChars)
 
-        console.log(result)
         localStorage.setItem('score', result)
         localStorage.setItem('chars', correctChars)
-        localStorage.setItem('accuracy', 100)
+        localStorage.setItem('accuracy', (overallCorrectChars / attemptedChars * 100).toFixed(2))
         navigate("/score")
     }
 
@@ -199,6 +201,16 @@ function Main(){
         return result
     }
 
+    function getNumGreenChars(){
+        let result = 0
+        for(let i = 0; i < chars.length; i++){
+            if (chars[i] === 'green'){
+                result++
+            }
+        }
+        return result
+    }
+
     function getResult(correctChars){
         correctChars /= 5
         let time = localStorage.getItem('timeMode')
@@ -229,6 +241,7 @@ function Main(){
             initialTop.current = null;
             setCurrentLine(0);
             setTestEnd(false)
+            setAttemptedChars(0)
             window.dispatchEvent(new Event('stopTimer'))
         }
     }, [text])
