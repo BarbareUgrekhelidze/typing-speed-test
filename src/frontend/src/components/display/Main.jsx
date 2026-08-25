@@ -137,7 +137,7 @@ function Main(){
     useEffect(() => {
         window.addEventListener('testEnd', handleTestEnd)
         return () => window.removeEventListener('testEnd', handleTestEnd)
-    }, [chars, text])
+    })
 
     const handleTestEnd = () => {
         setTestEnd(true)
