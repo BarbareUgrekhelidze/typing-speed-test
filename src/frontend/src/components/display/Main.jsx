@@ -4,6 +4,12 @@ import {useEffect, useRef, useState} from "react";
 function Main(){
     const [text, setText] = useState("")
     const [testEnd, setTestEnd] = useState(false)
+    const [testResult, setTestResult] = useState(0)
+    const [level, setLevel] = useState(() => {
+        return localStorage.getItem('difficulty') || 'easy'
+    })
+    const [currIndex, setCurrIndex] = useState(0)
+    const [chars, setChars] = useState([])
 
     {/* Start fetching random text */}
     const fetchData = async () => {
@@ -26,56 +32,42 @@ function Main(){
     }
     {/* End fetching random text */}
 
-    {/* Start difficulty change logic */}
-    const [level, setLevel] = useState(() => {
-        return localStorage.getItem('difficulty') || 'easy'
-    })
-
-    const handleDifficultyChange = async () => {
-        const currentLevel = localStorage.getItem('difficulty') || 'easy';
-        setLevel(currentLevel);
-    };
-
+    {/* Start Handling events */}
     useEffect(() => {
-        window.addEventListener('difficultyChange', handleDifficultyChange);
-        return () => window.removeEventListener('difficultyChange', handleDifficultyChange);
-    }, []);
+        const handleDifficultyChange = async () => {
+            const currentLevel = localStorage.getItem('difficulty') || 'easy';
+            setLevel(currentLevel);
+        };
 
+        const handleTimeChange = async () => {
+            await fetchData()
+        }
+
+        const handleRestart = async () => {
+            await fetchData()
+        };
+
+        window.addEventListener('difficultyChange', handleDifficultyChange);
+        window.addEventListener('timeChange', handleTimeChange)
+        window.addEventListener('restart', handleRestart);
+
+        return () => {
+            window.removeEventListener('difficultyChange', handleDifficultyChange)
+            window.removeEventListener('timeChange', handleTimeChange)
+            window.removeEventListener('restart', handleRestart)
+        }
+    }, []);
+    {/* End Handling events */}
+
+    {/* Start difficulty change logic */}
     useEffect(() => {
         fetchData()
     }, [level])
     {/* End difficulty change logic */}
 
-    {/* Start Handle time change */}
-    useEffect(() => {
-        window.addEventListener('timeChange', handleTimeChange)
-        return () => window.removeEventListener('timeChange', handleTimeChange)
-    })
-
-    const handleTimeChange = async () => {
-        await fetchData()
-    }
-    {/* End Handle time change */}
-
-    {/* Start Restart logic */}
-    useEffect(() => {
-        window.addEventListener('restart', handleRestart);
-        return () => window.removeEventListener('restart', handleRestart)
-    })
-
-    const handleRestart = async () => {
-        await fetchData()
-    };
-    {/* End Restart logic */}
-
     {/* Start Typing logic */}
-    const [chars, setChars] = useState(() => {
-        return Array(text.length).fill('untyped')
-    })
-    const [currIndex, setCurrIndex] = useState(0)
-
     const handleTyping = (e) => {
-        if (testEnd) return
+        if (testEnd || !text.length) return
 
         window.dispatchEvent(new Event('startTimer'))
 
@@ -141,12 +133,87 @@ function Main(){
     useEffect(() => {
         window.addEventListener('testEnd', handleTestEnd)
         return () => window.removeEventListener('testEnd', handleTestEnd)
-    }, [])
+    }, [chars, text])
 
     const handleTestEnd = () => {
         setTestEnd(true)
 
-        {/** todo calculate result */}
+        if (!chars || chars.length === 0) {
+            console.warn("Test ended before characters were initialized.")
+            return
+        }
+
+
+        let words = getWords()
+        let correctChars = getNumOfCorrectChars(words)
+        let result = getResult(correctChars)
+
+        console.log(result)
+        setTestResult(result)
+    }
+
+    function getWords(){
+        let words = []
+        let word = ""
+        for(let c = 0; c < chars.length; c++){
+            if (c > 0){
+                if (text[c-1] === ' '){
+                    words.push(word)
+                    word = ""
+                }
+            }
+
+            if (chars[c] === 'red'){
+                word += "r"
+            }else if (chars[c] === 'green'){
+                word += "g"
+            }else if (chars[c] === 'untyped'){
+                word += "u"
+            }
+
+            if (c === chars.length - 1){
+                words.push(word)
+            }
+        }
+
+        return words
+    }
+
+    function getNumOfCorrectChars(words){
+        let result = 0
+        for(let w = 0; w < words.length; w++){
+            if (!words[w].includes("r") && !words[w].includes("u")){
+                result += words[w].length
+            }else if (!words[w].includes("r")){
+                for(let i = 0; i < words[w].length; i++){
+                    if (words[w][i] === 'g'){
+                        result++
+                    }
+                }
+            }
+        }
+        return result
+    }
+
+    function getResult(correctChars){
+        correctChars /= 5
+        let time = localStorage.getItem('timeMode')
+        let result
+        if (time !== null){
+            if (time === '15'){
+                result = correctChars * 4
+            }else if (time === '30'){
+                result = correctChars * 2
+            }else if (time === '60'){
+                result = correctChars
+            }else if (time === '120'){
+                result = correctChars / 2
+            }
+        }else{
+            console.log("time is null")
+        }
+
+        return result
     }
     {/* End Speed calculation logic */}
 
