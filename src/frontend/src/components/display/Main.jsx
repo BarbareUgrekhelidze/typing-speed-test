@@ -1,10 +1,12 @@
 import './DisplayStyle.css'
 import {useEffect, useRef, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 function Main(){
+    const navigate = useNavigate()
+
     const [text, setText] = useState("")
     const [testEnd, setTestEnd] = useState(false)
-    const [testResult, setTestResult] = useState(0)
     const [level, setLevel] = useState(() => {
         return localStorage.getItem('difficulty') || 'easy'
     })
@@ -143,13 +145,15 @@ function Main(){
             return
         }
 
-
         let words = getWords()
         let correctChars = getNumOfCorrectChars(words)
         let result = getResult(correctChars)
 
         console.log(result)
-        setTestResult(result)
+        localStorage.setItem('score', result)
+        localStorage.setItem('chars', correctChars)
+        localStorage.setItem('accuracy', 100)
+        navigate("/score")
     }
 
     function getWords(){

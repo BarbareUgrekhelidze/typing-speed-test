@@ -1,0 +1,85 @@
+:root{
+    --blue: hsl(214, 100%, 55%);
+    --blue-hover: hsl(210, 100%, 65%);
+    --red: hsl(354, 63%, 57%);
+    --yellow: hsl(49, 85%, 70%);
+    --green: hsl(140, 63%, 57%);
+}
+
+.wrapper{
+    width: 80%;
+    margin: auto;
+    padding: 20px 0px 20px 0px;
+}
+
+.icon-completed {
+    text-align: center;
+    height: 100px;
+    margin: 50px 0px 50px 0px;
+}
+
+.completed-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.test-result {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.test-result p {
+    border: 1px solid White;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 170px;
+    font-size: 20px;
+}
+
+.score-wpm span {
+    color: var(--green)
+}
+
+.score-accuracy span {
+    color: var(--red)
+}
+
+.score-chars span {
+    color: var(--yellow)
+}
+
+.again-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.again-btn {
+    padding: 10px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    color: White;
+    font-size: 17px;
+    background-color: var(--blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s;
+    gap: 10px;
+    self-align: center;
+}
+
+.again-btn:hover {
+    background-color: var(--blue-hover);
+}
+
+.again-btn img {
+    height: 20px;
+}
+
