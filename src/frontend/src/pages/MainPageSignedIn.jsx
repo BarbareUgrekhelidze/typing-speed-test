@@ -3,6 +3,7 @@ import '../components/display/DisplayStyle.css'
 function MainPageSignedIn(){
     return (
         <>
+
         </>
     )
 }

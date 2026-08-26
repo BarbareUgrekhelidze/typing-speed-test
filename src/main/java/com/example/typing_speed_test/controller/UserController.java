@@ -30,4 +30,9 @@ public class UserController {
     public UserResponse createUser(@RequestBody UserRequest request){
        return userService.createUser(request);
     }
+
+    @PostMapping("/login")
+    public UserResponse signInUser(@RequestBody UserRequest request){
+        return userService.signInUser(request);
+    }
 }
