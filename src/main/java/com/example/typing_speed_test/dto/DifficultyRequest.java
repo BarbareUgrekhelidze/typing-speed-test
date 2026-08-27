@@ -7,6 +7,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class DifficultyRequest {
-    private Integer id;
-    private String difficulty;
+    public Integer id;
+    public String difficulty;
 }
