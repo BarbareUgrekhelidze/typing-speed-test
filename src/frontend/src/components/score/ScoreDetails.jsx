@@ -5,10 +5,13 @@ function ScoreDetails({score, accuracy, chars}){
     const navigate = useNavigate()
 
     function handleAgain(){
-        if (localStorage.getItem('username')){
-            navigate("/signedIn")
-        }else{
+        const name = localStorage.getItem('username')?.trim();
+
+        if (!name || name === "null" || name === "undefined") {
+            console.warn("Score submission skipped: Invalid or missing username.");
             navigate("/")
+        }else{
+            navigate("/signedIn")
         }
     }
 
