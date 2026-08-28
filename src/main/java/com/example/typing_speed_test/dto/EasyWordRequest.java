@@ -7,6 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EasyWordRequest {
-    public Integer id;
-    public String easyWord;
+    private Integer id;
+    private String easyWord;
 }

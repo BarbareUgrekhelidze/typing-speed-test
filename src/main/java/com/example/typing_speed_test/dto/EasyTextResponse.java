@@ -7,6 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EasyTextResponse {
-    public Integer id;
-    public String easyText;
+    private Integer id;
+    private String easyText;
 }

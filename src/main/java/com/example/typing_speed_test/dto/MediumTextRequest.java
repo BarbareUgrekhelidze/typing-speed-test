@@ -7,6 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MediumTextRequest {
-    public Integer id;
-    public String mediumText;
+    private Integer id;
+    private String mediumText;
 }

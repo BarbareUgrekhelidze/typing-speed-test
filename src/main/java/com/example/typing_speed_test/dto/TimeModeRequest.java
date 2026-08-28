@@ -8,6 +8,6 @@ import java.time.Duration;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TimeModeRequest {
-    public Integer id;
-    public Duration time;
+    private Integer id;
+    private Integer time;
 }

@@ -7,6 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MediumWordResponse {
-    public Integer id;
-    public String mediumWord;
+    private Integer id;
+    private String mediumWord;
 }

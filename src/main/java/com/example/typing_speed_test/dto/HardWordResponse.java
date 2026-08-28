@@ -7,6 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HardWordResponse {
-    public Integer id;
-    public String hardWord;
+    private Integer id;
+    private String hardWord;
 }

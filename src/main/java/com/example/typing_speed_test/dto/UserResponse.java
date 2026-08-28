@@ -7,8 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserResponse {
-    public Integer id;
-    public String username;
-    public String email;
-    public String password;
+    private Integer id;
+    private String username;
+    private String email;
+    private String password;
 }

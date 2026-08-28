@@ -7,6 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HardTextRequest {
-    public Integer id;
-    public String hardText;
+    private Integer id;
+    private String hardText;
 }

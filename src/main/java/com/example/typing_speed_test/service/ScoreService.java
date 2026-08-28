@@ -3,6 +3,8 @@ import com.example.typing_speed_test.dto.ScoreRequest;
 import com.example.typing_speed_test.dto.ScoreResponse;
 import com.example.typing_speed_test.model.Difficulty;
 import com.example.typing_speed_test.model.Score;
+import com.example.typing_speed_test.model.TimeMode;
+import com.example.typing_speed_test.model.User;
 import com.example.typing_speed_test.repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,16 +41,16 @@ public class ScoreService {
         Optional<Score> scores = scoreRepository.findByUserId(userId);
 
         return scores.stream().map(score -> {
-            return new ScoreResponse(score.getId(), score.getUser(), score.getDifficulty(), score.getTimeMode(), score.getWpm(), score.getTextId());
+            return toScoreResponse(score);
         }).collect(Collectors.toList());
     }
 
-    public ScoreResponse getMaxScore(Integer userId, Integer difficulty){
+    public ScoreResponse getMaxScore(Integer userId){
         Optional<Score> scores = scoreRepository.findByUserId(userId);
         Score defaultScore = new Score();
         defaultScore.setWpm(Integer.MIN_VALUE);
 
-        Score maxScore = scores.stream().filter(score -> score.getDifficulty().equals(difficulty))
+        Score maxScore = scores.stream()
                 .reduce(defaultScore, (currScore, nextScore) -> {
             if (nextScore.getWpm() > currScore.getWpm()){
                 return nextScore;
@@ -62,29 +64,12 @@ public class ScoreService {
 
     @Transactional
     public ScoreResponse addScore(ScoreRequest request){
-        if (request.getUser() == null){
-            throw new IllegalArgumentException("User is required.");
-        }
-
-        if (userRepository.findById(request.getUser().getId()) == null){
-            throw new IllegalArgumentException("User with id: " + request.getUser().getId() + " does not exist.");
-        }
-
-        if (request.getDifficulty() == null){
-            throw new IllegalArgumentException("Difficulty is required.");
-        }
-
-        if (difficultyRepository.findById(request.getDifficulty().getId()) == null){
-            throw new IllegalArgumentException("Difficulty with id: " + request.getDifficulty().getId() + " does not exist.");
-        }
-
-        if (request.getTimeMode() == null){
-            throw new IllegalArgumentException("TimeMode is required.");
-        }
-
-        if (timeModeRepository.findById(request.getTimeMode().getId()) == null){
-            throw new IllegalArgumentException("TimeMode with id: " + request.getTimeMode().getId() + " does not exist.");
-        }
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("User with id: " + request.getUserId() + " does not exist."));
+        Difficulty diff = difficultyRepository.findById(request.getDifficultyId())
+                .orElseThrow(() -> new IllegalArgumentException("Difficulty with id: " + request.getDifficultyId() + " does not exist."));
+        TimeMode time = timeModeRepository.findById(request.getTimeModeId())
+                .orElseThrow(() -> new IllegalArgumentException("TimeMode with id: " + request.getTimeModeId() + " does not exist."));
 
         if (request.getWpm() == null){
             throw new IllegalArgumentException("Wpm is required.");
@@ -94,28 +79,28 @@ public class ScoreService {
             throw new IllegalArgumentException("Text is required.");
         }
 
-        Optional<Difficulty> difficulty = difficultyRepository.findById(request.getDifficulty().getId());
-        Difficulty diff = difficulty.get();
+        boolean exists = false;
+        String level = diff.getDifficulty() == null ? "" : diff.getDifficulty();
 
-        if (diff.getDifficulty().equals("Easy")){
-            if (easyTextRepository.findById(request.getTextId()) == null){
-                throw new IllegalArgumentException("Easy Text with id: " + request.getTextId() + " does not exist.");
-            }
+        if (level.equalsIgnoreCase("Easy")){
+            exists = easyTextRepository.existsById(request.getTextId());
+        }else if (level.equalsIgnoreCase("Medium")){
+            exists = mediumTextRepository.existsById(request.getTextId());
+        }else if (level.equalsIgnoreCase("Hard")){
+            exists = hardTextRepository.existsById(request.getTextId());
         }
 
-        if (diff.getDifficulty().equals("Medium")){
-            if (mediumTextRepository.findById(request.getTextId()) == null){
-                throw new IllegalArgumentException("Medium Text with id: " + request.getTextId() + " does not exist.");
-            }
+        if (!exists){
+            throw new IllegalArgumentException("Text with id: " + request.getTextId() + " does not exist.");
         }
 
-        if (diff.getDifficulty().equals("Hard")){
-            if (hardTextRepository.findById(request.getTextId()) == null){
-                throw new IllegalArgumentException("Hard Text with id: " + request.getTextId() + " does not exist.");
-            }
-        }
-
-        Score newScore = scoreRepository.save(new Score(request.getUser(), request.getDifficulty(), request.getTimeMode(), request.getWpm(), request.getTextId()));
+        Score newScore = scoreRepository.save(new Score(
+                user,
+                diff,
+                time,
+                request.getWpm(),
+                request.getTextId()
+        ));
 
         return toScoreResponse(newScore);
     }
