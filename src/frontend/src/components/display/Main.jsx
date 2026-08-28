@@ -241,7 +241,12 @@ function Main(){
     {/* Start Adding New Score */}
     const hasSubmitted = useRef(false)
     function handleNewScore(result){
-        if (!localStorage.getItem('username')) return
+        const name = localStorage.getItem('username')?.trim();
+
+        if (!name || name === "null" || name === "undefined") {
+            console.warn("Score submission skipped: Invalid or missing username.");
+            return;
+        }
 
         if (hasSubmitted.current) return;
         hasSubmitted.current = true;
