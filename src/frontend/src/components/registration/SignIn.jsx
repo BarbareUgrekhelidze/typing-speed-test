@@ -32,7 +32,7 @@ function SignIn (){
 
                 if (result.ok) {
                     const response = await result.json()
-                    console.log("success");
+                    localStorage.setItem('username', response.username)
                     navigate("/signedIn")
                 } else {
                     console.log("fail: " + result.status);

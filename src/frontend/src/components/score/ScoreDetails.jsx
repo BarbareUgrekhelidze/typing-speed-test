@@ -4,6 +4,14 @@ import {useNavigate} from "react-router-dom";
 function ScoreDetails({score, accuracy, chars}){
     const navigate = useNavigate()
 
+    function handleAgain(){
+        if (localStorage.getItem('username')){
+            navigate("/signedIn")
+        }else{
+            navigate("/")
+        }
+    }
+
     return (
      <>
          <img className="icon-completed" src="images/icon-completed.svg" alt=""/>
@@ -14,7 +22,7 @@ function ScoreDetails({score, accuracy, chars}){
              <p className="score-chars">Characters: <span>{chars} / 5</span></p>
          </div>
          <div className="again-btn-wrapper">
-            <button onClick={() => navigate("/")} className="again-btn">Again<img src="images/icon-restart.svg" alt=""/></button>
+            <button onClick={handleAgain} className="again-btn">Again<img src="images/icon-restart.svg" alt=""/></button>
          </div>
      </>
     )

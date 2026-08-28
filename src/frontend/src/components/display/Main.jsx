@@ -28,6 +28,8 @@ function Main(){
             }
 
             const data = await result.json();
+            localStorage.setItem('textId', data.id)
+
             setText(data.easyText || data.mediumText || data.hardText || data.text || JSON.stringify(data));
         }catch(err){
             console.error("failed to fetch data: ", err)
@@ -155,6 +157,9 @@ function Main(){
         localStorage.setItem('score', result)
         localStorage.setItem('chars', correctChars)
         localStorage.setItem('accuracy', (overallCorrectChars / attemptedChars * 100).toFixed(2))
+
+        handleNewScore(result)
+
         navigate("/score")
     }
 
@@ -232,6 +237,66 @@ function Main(){
         return result
     }
     {/* End Speed calculation logic */}
+
+    {/* Start Adding New Score */}
+    const hasSubmitted = useRef(false)
+    function handleNewScore(result){
+        if (!localStorage.getItem('username')) return
+
+        if (hasSubmitted.current) return;
+        hasSubmitted.current = true;
+
+        const username = localStorage.getItem('username')
+        const timeMode = localStorage.getItem('timeMode')
+        const textId = localStorage.getItem('textId')
+
+        const addScoreData = async () => {
+            try{
+                const [userRes, difficultyRes, timeModeRes] = await Promise.all([
+                    fetch(`http://localhost:8080/users/username/${username}`),
+                    fetch(`http://localhost:8080/difficulty/level/${level}`),
+                    fetch(`http://localhost:8080/duration/seconds/${timeMode}`)
+                ]);
+
+                if (!userRes.ok || !difficultyRes.ok || !timeModeRes.ok) {
+                    throw new Error("One or more setup endpoints failed to respond.");
+                }
+
+                const userData = await userRes.json();
+                const difficultyData = await difficultyRes.json();
+                const timeModeData = await timeModeRes.json();
+
+                const scoreData = {
+                    userId: userData.id,
+                    difficultyId: difficultyData.id,
+                    timeModeId: timeModeData.id,
+                    wpm: Number(result),
+                    textId: Number(textId)
+                };
+
+                const scoreResult = await fetch('http://localhost:8080/scores/newScore', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(scoreData)
+                });
+
+                if (scoreResult.ok) {
+                    const response = await scoreResult.json();
+                    console.log("Added score successfully:", response);
+                } else {
+                    const serverErrorText = await scoreResult.text();
+                    console.error("Server 500 Error details:", serverErrorText);
+                }
+            }catch(err){
+                console.error("failed to add new score: " + err)
+            }
+        }
+
+        addScoreData()
+    }
+    {/* End Adding New Score */}
 
     {/* Text change reset ---- */}
     useEffect(() => {

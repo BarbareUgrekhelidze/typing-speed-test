@@ -20,7 +20,6 @@ function SignUp (){
 
     function handleSignUp(e) {
         e.preventDefault();
-        console.log("sign up")
 
         const fetchData = async () => {
             try {
@@ -34,7 +33,7 @@ function SignUp (){
 
                 if (result.ok){
                     const response = await result.json()
-                    console.log("success")
+                    localStorage.setItem('username', response.username)
                     navigate("/signedIn")
                 }else{
                     console.error('Registration failed:', result.status);
@@ -56,7 +55,7 @@ function SignUp (){
                     <input onChange={(e) => handleInputChange(e)} name="email" type="email" placeholder="Enter email"/>
                     <input onChange={(e) => handleInputChange(e)} name="username" type="text" placeholder="Enter username"/>
                     <input onChange={(e) => handleInputChange(e)} name="password" type="password" placeholder="Enter password"/>
-                    <button onClick={handleSignUp} className="sign-up-btn">Sign Up</button>
+                    <button type="submit" className="sign-up-btn">Sign Up</button>
                 </form>
             </div>
         </div>
