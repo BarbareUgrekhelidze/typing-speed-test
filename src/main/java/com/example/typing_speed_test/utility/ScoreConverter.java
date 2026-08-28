@@ -9,9 +9,9 @@ public class ScoreConverter {
 
         return ScoreResponse.builder()
                 .id(score.getId())
-                .user(score.getUser())
-                .difficulty(score.getDifficulty())
-                .timeMode(score.getTimeMode())
+                .userId(score.getUser() != null ? score.getUser().getId() : null)
+                .difficultyId(score.getDifficulty() != null ? score.getDifficulty().getId() : null)
+                .timeModeId(score.getTimeMode() != null ? score.getTimeMode().getId() : null)
                 .wpm(score.getWpm())
                 .textId(score.getTextId())
                 .build();

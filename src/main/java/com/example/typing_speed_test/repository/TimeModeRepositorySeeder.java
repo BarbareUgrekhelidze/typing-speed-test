@@ -18,9 +18,9 @@ public class TimeModeRepositorySeeder implements CommandLineRunner {
             return;
         }
 
-        timeModeRepository.save(new TimeMode(Duration.ofSeconds(15, 0)));
-        timeModeRepository.save(new TimeMode(Duration.ofSeconds(30, 0)));
-        timeModeRepository.save(new TimeMode(Duration.ofSeconds(60, 0)));
-        timeModeRepository.save(new TimeMode(Duration.ofSeconds(120, 0)));
+        timeModeRepository.save(new TimeMode(15));
+        timeModeRepository.save(new TimeMode(30));
+        timeModeRepository.save(new TimeMode(60));
+        timeModeRepository.save(new TimeMode(120));
     }
 }

@@ -27,7 +27,7 @@ public class Score {
     @JoinColumn(name = "TimeID", nullable = false)
     private TimeMode timeMode;
 
-    @Column(name = "Wmp", nullable = false)
+    @Column(name = "Wpm", nullable = false)
     private Integer wpm;
 
     @Column(name = "TextID", nullable = false)

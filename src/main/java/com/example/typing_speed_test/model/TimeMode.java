@@ -1,7 +1,6 @@
 package com.example.typing_speed_test.model;
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.Duration;
 
 @Entity
 @Table(name="TimeMode")
@@ -17,9 +16,9 @@ public class TimeMode {
     private Integer id;
 
     @Column(name = "Time", nullable = false)
-    private Duration time;
+    private Integer time;
 
-    public TimeMode(Duration time){
+    public TimeMode(Integer time){
         this.time = time;
     }
 }

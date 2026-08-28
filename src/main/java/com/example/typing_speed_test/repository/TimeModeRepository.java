@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface TimeModeRepository extends JpaRepository<TimeMode, Integer> {
-    Optional<TimeMode> findByTime(Duration duration);
+    Optional<TimeMode> findByTime(Integer duration);
 }

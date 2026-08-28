@@ -20,7 +20,7 @@ public class TimeModeService {
         return toTimeModeResponse(timeModeRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Time mode with id: " + id + " does not exist.")));
     }
 
-    public TimeModeResponse getTimeModeByTime(Duration time){
+    public TimeModeResponse getTimeModeByTime(Integer time){
         return toTimeModeResponse(timeModeRepository.findByTime(time).orElseThrow(() -> new NoSuchElementException("Time mode with duration: " + time + "s does not exist.")));
     }
 
