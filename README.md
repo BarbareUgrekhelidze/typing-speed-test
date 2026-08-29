@@ -1,5 +1,5 @@
 # typing-speed-test
-Website where you can check your typing skills: wpm and accuracy.
+Website where you can check your typing skills: wpm (words per minute) and accuracy.
 
 # In this Project I am using following tools and languages:
 1. Java Spring Boot
