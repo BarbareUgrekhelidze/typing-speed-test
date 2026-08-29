@@ -244,7 +244,6 @@ function Main(){
         const name = localStorage.getItem('username')?.trim();
 
         if (!name || name === "null" || name === "undefined") {
-            console.warn("Score submission skipped: Invalid or missing username.");
             return;
         }
 

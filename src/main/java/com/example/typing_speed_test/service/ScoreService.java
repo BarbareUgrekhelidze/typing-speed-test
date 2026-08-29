@@ -6,6 +6,7 @@ import com.example.typing_speed_test.model.Score;
 import com.example.typing_speed_test.model.TimeMode;
 import com.example.typing_speed_test.model.User;
 import com.example.typing_speed_test.repository.*;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,18 +47,8 @@ public class ScoreService {
     }
 
     public ScoreResponse getMaxScore(Integer userId){
-        Optional<Score> scores = scoreRepository.findByUserId(userId);
-        Score defaultScore = new Score();
-        defaultScore.setWpm(Integer.MIN_VALUE);
-
-        Score maxScore = scores.stream()
-                .reduce(defaultScore, (currScore, nextScore) -> {
-            if (nextScore.getWpm() > currScore.getWpm()){
-                return nextScore;
-            }else{
-                return currScore;
-            }
-        });
+        Score maxScore = scoreRepository.findFirstByUserIdOrderByWpmDesc(userId)
+                .orElseThrow(() -> new EntityNotFoundException("No max Score was found for user with id: " + userId));
 
         return toScoreResponse(maxScore);
     }

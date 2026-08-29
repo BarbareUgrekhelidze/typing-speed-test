@@ -56,21 +56,11 @@ body{
     gap: 15px;
 }
 
-.current-state .box-1 .wpm span{
-    font-weight: bold;
-    font-size: 25px;
-}
-
-.current-state .box-1 .accuracy span {
-    font-weight: bold;
-    font-size: 25px;
-    color: var(--red);
-}
-
 .current-state .box-1 .time span {
     font-weight: bold;
     font-size: 25px;
     color: var(--yellow);
+    margin-left: 15px;
 }
 
 .current-state .box-2 {

@@ -8,7 +8,6 @@ function ScoreDetails({score, accuracy, chars}){
         const name = localStorage.getItem('username')?.trim();
 
         if (!name || name === "null" || name === "undefined") {
-            console.warn("Score submission skipped: Invalid or missing username.");
             navigate("/")
         }else{
             navigate("/signedIn")

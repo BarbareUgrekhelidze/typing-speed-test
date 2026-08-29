@@ -7,4 +7,5 @@ import java.util.Optional;
 @Repository
 public interface ScoreRepository extends JpaRepository<Score, Integer> {
     Optional<Score> findByUserId(Integer id);
+    Optional<Score> findFirstByUserIdOrderByWpmDesc(Integer userId);
 }

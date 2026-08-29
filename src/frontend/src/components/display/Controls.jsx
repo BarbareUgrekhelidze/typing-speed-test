@@ -29,12 +29,6 @@ function Controls (){
     return (
         <div className="current-state">
             <div className="box-1">
-                <div className="wpm">
-                    <p>WPM: <span>0</span></p>
-                </div>
-                <div className="accuracy">
-                    <p>Accuracy: <span>100%</span></p>
-                </div>
                 <div className="time">
                     <p>Time:
                         <Timer duration={time} />

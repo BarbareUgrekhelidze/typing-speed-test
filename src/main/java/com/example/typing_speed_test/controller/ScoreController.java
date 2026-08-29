@@ -25,17 +25,8 @@ public class ScoreController {
     }
 
     @PostMapping("/newScore")
-    public ResponseEntity<?> addNewScore(@RequestBody ScoreRequest request){
-        try {
-            ScoreResponse response = scoreService.addScore(request);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            System.err.println("=== SCORE CREATION FAILED ===");
-            e.printStackTrace();
-            System.err.println("=============================");
-
-            return ResponseEntity.status(500).body("Error: " + e.getMessage());
-        }
+    public ScoreResponse addNewScore(@RequestBody ScoreRequest request){
+        return scoreService.addScore(request);
     }
 
 }
