@@ -12,19 +12,28 @@ function Head(){
         }
 
         const fetchMaxScore = async () => {
-            const result = await fetch('http://localhost:8080/scores/maxScore/1')
+            const [userRes] = await Promise.all([
+                fetch(`http://localhost:8080/users/username/${name}`)
+            ]);
 
-            if (result.ok){
+            if (!userRes.ok) {
+                return;
+            }
+
+            const userData = await userRes.json()
+            const result = await fetch(`http://localhost:8080/scores/maxScore/${userData.id}`)
+
+            if (result.ok) {
                 const data = await result.json()
                 console.log(data.wpm)
                 setPersonalBest(data.wpm)
-            }else{
+            } else {
                 console.log("failed to get max score: " + result.status)
             }
         }
 
         fetchMaxScore()
-    })
+    }, [])
 
     return (
         <div className="head">
