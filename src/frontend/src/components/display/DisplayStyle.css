@@ -182,3 +182,20 @@ body{
 .user-info img {
     width: 20px;
 }
+
+@media(max-width: 786px){
+    .current-state {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .user-info {
+        justify-content: center;
+        margin-top: 50px;
+    }
+
+    .text{
+        text-align: center;
+    }
+}
