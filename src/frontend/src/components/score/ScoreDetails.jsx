@@ -21,7 +21,7 @@ function ScoreDetails({score, accuracy, chars}){
          <div className="test-result">
              <p className="score-wpm">WPM: <span>{score}</span> </p>
              <p className="score-accuracy">Accuracy: <span>{accuracy}%</span></p>
-             <p className="score-chars">Characters: <span>{chars} / 5</span></p>
+             <p className="score-chars">Characters: <span>{chars} <span style={{color: 'hsl(354, 63%, 57%)'}}>/ 5</span></span></p>
          </div>
          <div className="again-btn-wrapper">
             <button onClick={handleAgain} className="again-btn">Again<img src="images/icon-restart.svg" alt=""/></button>
