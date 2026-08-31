@@ -45,11 +45,11 @@ function Main(){
         };
 
         const handleTimeChange = async () => {
-            await fetchData()
-        }
+            fetchData()
+        };
 
         const handleRestart = async () => {
-            await fetchData()
+            fetchData()
         };
 
         window.addEventListener('difficultyChange', handleDifficultyChange);
@@ -61,7 +61,7 @@ function Main(){
             window.removeEventListener('timeChange', handleTimeChange)
             window.removeEventListener('restart', handleRestart)
         }
-    }, []);
+    }, [fetchData]);
     {/* End Handling events */}
 
     {/* Start difficulty change logic */}
@@ -73,6 +73,8 @@ function Main(){
     {/* Start Typing logic */}
     const handleTyping = (e) => {
         if (testEnd || !text.length) return
+
+        if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'Tab'].includes(e.key)) return;
 
         setAttemptedChars((prev) => prev+1)
         window.dispatchEvent(new Event('startTimer'))
