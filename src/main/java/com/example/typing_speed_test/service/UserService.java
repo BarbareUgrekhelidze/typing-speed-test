@@ -5,6 +5,7 @@ import com.example.typing_speed_test.model.User;
 import com.example.typing_speed_test.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -76,20 +77,18 @@ public class UserService {
     }
 
     private boolean sendEmail(String email){
-        boolean result = true;
-
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom("bugre24@freeuni.edu.ge");
             message.setTo(email);
-            message.setSubject("Typing Speed Test");
-            message.setText("You successfully signed up on Typing Speed Test website");
+            message.setSubject("Typing Speed Test - Welcome!");
+            message.setText("You successfully signed up on The Typing Speed Test website.");
             mailSender.send(message);
-        }catch (Exception e){
-            result = false;
-        }
 
-        return result;
+            return true;
+        }catch (MailException e){
+            return false;
+        }
     }
 
     @Transactional
